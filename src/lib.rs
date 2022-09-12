@@ -1,3 +1,5 @@
+mod arrays_and_hashing;
+
 #[cfg(test)]
 mod tests {
     #[test]

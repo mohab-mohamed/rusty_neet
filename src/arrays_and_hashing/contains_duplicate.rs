@@ -1,15 +1,8 @@
 use std::collections::HashSet;
 
 pub fn contains_duplicate(nums: Vec<i32>) -> bool {
-    let mut hash_set: HashSet<i32> = HashSet::new();
-
-    for num in nums {
-        if hash_set.contains(&num) {
-            return true;
-        }
-        hash_set.insert(num);
-    }
-    false
+    let hash_set: HashSet<&i32> = nums.iter().collect();
+    hash_set.len() != nums.len()
 }
 
 #[cfg(test)]

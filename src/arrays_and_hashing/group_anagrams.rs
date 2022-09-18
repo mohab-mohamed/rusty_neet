@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-pub fn get_char_string(str: String) -> String {
+pub fn get_char_string(str: &str) -> String {
     let mut count: [u32; 26] = [0; 26];
 
     for c in str.chars() {
@@ -15,15 +15,16 @@ pub fn get_char_string(str: String) -> String {
 
 pub fn group_anagrams(strs: Vec<String>) -> Vec<Vec<String>> {
     let mut map: HashMap<String, Vec<String>> = HashMap::new();
-    vec![
-        vec![String::from("bat")],
-        vec![String::from("nat"), String::from("tan")],
-        vec![
-            String::from("ate"),
-            String::from("eat"),
-            String::from("tea"),
-        ],
-    ]
+    for s in strs {
+        let key = get_char_string(&s);
+        let group: &mut Vec<String> = map.entry(key).or_insert(Vec::new());
+        group.push(s);
+    }
+    let mut res: Vec<Vec<String>> = Vec::new();
+    for (_, val) in map {
+        res.push(val);
+    }
+    res
 }
 
 #[cfg(test)]
@@ -32,7 +33,7 @@ mod tests {
 
     #[test]
     fn test_char_string() {
-        let mock = String::from("abc");
+        let mock = "abc";
         let result = get_char_string(mock);
         assert_eq!(result, "11100000000000000000000000")
     }
